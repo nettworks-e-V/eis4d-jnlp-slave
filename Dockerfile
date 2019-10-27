@@ -2,6 +2,7 @@ FROM nettworksevtooling/eis4d-buildcontainer:latest
 MAINTAINER Yves Schumann <yves@eisfair.org>
 LABEL Description="This is a base image, which allows connecting Jenkins agents via JNLP protocols"
 
+ARG VERSION=3.35
 ARG USER=jenkins
 ARG GROUP=jenkins
 ARG UID=1000
