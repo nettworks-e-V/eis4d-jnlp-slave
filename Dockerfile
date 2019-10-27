@@ -2,18 +2,18 @@ FROM nettworksevtooling/eis4d-buildcontainer:latest
 MAINTAINER Yves Schumann <yves@eisfair.org>
 LABEL Description="This is a base image, which allows connecting Jenkins agents via JNLP protocols"
 
-ARG user=jenkins
-ARG group=jenkins
-ARG uid=1000
-ARG gid=1000
-ARG AGENT_WORKDIR=/home/${user}/agent
+ARG USER=jenkins
+ARG GROUP=jenkins
+ARG UID=1000
+ARG GID=1000
+ARG AGENT_WORKDIR=/home/${USER}/agent
 ENV AGENT_WORKDIR=${AGENT_WORKDIR}
 
 USER root
 
 COPY jenkins-agent.sh /usr/local/bin/jenkins-agent.sh
-RUN groupadd -g ${gid} ${group} \
- && useradd -c "Jenkins user" -d /home/${user} -u ${uid} -g ${gid} -m ${user} \
+RUN groupadd -g ${GID} ${GROUP} \
+ && useradd -c "Jenkins user" -d /home/${USER} -u ${UID} -g ${GID} -m ${USER} \
  && apt-get update -y \
  && apt-get install -y \
     openjdk-11-jdk \
@@ -26,13 +26,13 @@ RUN groupadd -g ${gid} ${group} \
 RUN chmod +x /usr/local/bin/jenkins-agent.sh \
  && ln -s /usr/local/bin/jenkins-agent.sh /usr/local/bin/jenkins-slave
 
-USER ${user}
+USER ${USER}
 
-RUN mkdir /home/${user}/.jenkins \
+RUN mkdir /home/${USER}/.jenkins \
  && mkdir -p ${AGENT_WORKDIR}
 
-VOLUME /home/${user}/.jenkins
+VOLUME /home/${USER}/.jenkins
 VOLUME ${AGENT_WORKDIR}
-WORKDIR /home/${user}
+WORKDIR /home/${USER}
 
 ENTRYPOINT ["jenkins-agent.sh"]
