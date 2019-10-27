@@ -5,8 +5,8 @@ LABEL Description="This is a base image, which allows connecting Jenkins agents 
 ARG VERSION=3.35
 ARG USER=jenkins
 ARG GROUP=jenkins
-ARG UID=1000
-ARG GID=1000
+ARG UID=1058
+ARG GID=1007
 ARG AGENT_WORKDIR=/home/${USER}/agent
 ENV AGENT_WORKDIR=${AGENT_WORKDIR}
 
