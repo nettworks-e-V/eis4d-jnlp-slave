@@ -26,7 +26,7 @@ RUN groupadd -g ${GID} ${GROUP} \
       && ln -sf /usr/share/jenkins/agent.jar /usr/share/jenkins/slave.jar
 
 RUN chmod +x /usr/local/bin/jenkins-agent.sh \
- && chown -R ${USER}:${GROUP} ${REPO_DIR} \
+ && chown -R ${UID}:${GID} ${REPO_DIR} \
  && ln -s /usr/local/bin/jenkins-agent.sh /usr/local/bin/jenkins-slave
 
 USER ${USER}
@@ -36,6 +36,8 @@ RUN mkdir /home/${USER}/.jenkins \
 
 VOLUME /home/${USER}/.jenkins
 VOLUME ${AGENT_WORKDIR}
+VOLUME ${REPO_DIR}
+
 WORKDIR /home/${USER}
 
 ENTRYPOINT ["jenkins-agent.sh"]
