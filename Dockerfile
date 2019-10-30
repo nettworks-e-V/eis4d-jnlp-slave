@@ -8,7 +8,8 @@ ARG GROUP=jenkins
 ARG UID=1058
 ARG GID=1007
 ARG AGENT_WORKDIR=/home/${USER}/agent
-ENV AGENT_WORKDIR=${AGENT_WORKDIR}
+ENV AGENT_WORKDIR=${AGENT_WORKDIR} \
+    REPO_DIR=/var/www/html/repo
 
 USER root
 
@@ -25,6 +26,7 @@ RUN groupadd -g ${GID} ${GROUP} \
       && ln -sf /usr/share/jenkins/agent.jar /usr/share/jenkins/slave.jar
 
 RUN chmod +x /usr/local/bin/jenkins-agent.sh \
+ && chown -R ${USER}:${GROUP} ${REPO_DIR} \
  && ln -s /usr/local/bin/jenkins-agent.sh /usr/local/bin/jenkins-slave
 
 USER ${USER}
