@@ -34,10 +34,6 @@ USER ${USER}
 RUN mkdir /home/${USER}/.jenkins \
  && mkdir -p ${AGENT_WORKDIR}
 
-VOLUME /home/${USER}/.jenkins
-VOLUME ${AGENT_WORKDIR}
-VOLUME ${REPO_DIR}
-
 WORKDIR /home/${USER}
 
 ENTRYPOINT ["jenkins-agent.sh"]
